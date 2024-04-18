@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Book</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Recipe Book</h1>
+
+        <table border="1">
+            <tr>
+                <td><strong>Recipes</strong></td>
+                <td><strong>Recipe Images</strong></td>
+            </tr>
+            {% for object in object_list %}
+            <tr>
+                <td><a href ="{{object.get_absolute_url}}">{{object.name}}</a></td>
+                <td><img class="recipe-image-list" src="{{object.pic.url}}" alt="{{object.name}}"></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<h1>Recipe Book</h1>        {% comment%} HTML tag for heading  {% endcomment%}
+
+<table border="1" cellpadding="5" cellspacing = "5">    {% comment%} start of table  {% endcomment%}
+   <tr> {% comment%}  the 'tr' tag adds a new row   {% endcomment%}
+       <td>Recipes</td>   {% comment%} the 'td' tag adds a column  {% endcomment%}       <td>Recipe Images</td>
+   </tr>
+   {% for object in object_list %} {% comment%} now go through the list element-by-element  {% endcomment%}
+   <tr>
+       <td><a href ="{{object.get_absolute_url}}"> {{object.name}} </a></td> {% comment%} print the name of recipe  {% endcomment%}
+       <td><img src="{{object.pic.url}}" width="150" height="200" /></td>   {% comment%} display the picture of recipe  {% endcomment%}
+   </tr>
+   {% endfor %}
+</table> -->

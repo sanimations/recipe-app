@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ object.name }} Recipe Detail</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>{{ object.name }}</h1>
+
+      <div class="recipe-details">
+        <div class="description">
+          <h2>Description:</h2>
+          <p>{{ object.description }}</p>
+        </div>
+
+        <div class="recipe-image">
+          <img
+            src="{{ object.pic.url }}"
+            alt="{{ object.name }} Image"
+            width="400"
+          />
+        </div>
+        <div class="cooking-time-and-difficulty box">
+          <h2>Cooking Time & Difficulty:</h2>
+          <p>
+            {{ object.cooking_time }} minutes - {{ object.calc_difficulty }}
+          </p>
+        </div>
+
+        <div class="ingredients">
+          <h2>Ingredients:</h2>
+          <p>{{ object.ingredients }}</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
