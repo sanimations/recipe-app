@@ -9,6 +9,11 @@
 </head>
 <body>
     <a href ="{%url 'logout' %}"> Logout </a>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" >search</button>
+    </form>
     <div class="container">
         <h1>Recipe Book</h1>
 
@@ -27,18 +32,3 @@
     </div>
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<h1>Recipe Book</h1>        {% comment%} HTML tag for heading  {% endcomment%}
-
-<table border="1" cellpadding="5" cellspacing = "5">    {% comment%} start of table  {% endcomment%}
-   <tr> {% comment%}  the 'tr' tag adds a new row   {% endcomment%}
-       <td>Recipes</td>   {% comment%} the 'td' tag adds a column  {% endcomment%}       <td>Recipe Images</td>
-   </tr>
-   {% for object in object_list %} {% comment%} now go through the list element-by-element  {% endcomment%}
-   <tr>
-       <td><a href ="{{object.get_absolute_url}}"> {{object.name}} </a></td> {% comment%} print the name of recipe  {% endcomment%}
-       <td><img src="{{object.pic.url}}" width="150" height="200" /></td>   {% comment%} display the picture of recipe  {% endcomment%}
-   </tr>
-   {% endfor %}
-</table> -->
