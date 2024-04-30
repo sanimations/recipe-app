@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Book</title>
-    <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}">
-</head>
-<body>
-    <a href ="{%url 'logout' %}"> Logout </a>
+    <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}" />
+  </head>
+  <body>
+    <a href="{%url 'logout' %}"> Logout </a>
     <form action="" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <button type="submit" >search</button>
+      {% csrf_token %} {{form}}
+      <button type="submit">search</button>
     </form>
+    {% if recipes_df %} 
+        {{recipes_df|safe}} 
+    {% else %}
+        <h3>no data</h3>
+    {% endif %}
     <div class="container">
-        <h1>Recipe Book</h1>
+      <h1>Recipe Book</h1>
 
-        <table border="1">
-            <tr>
-                <td><strong>Recipes</strong></td>
-                <td><strong>Recipe Images</strong></td>
-            </tr>
-            {% for object in object_list %}
-            <tr>
-                <td><a href ="{{object.get_absolute_url}}">{{object.name}}</a></td>
-                <td><img class="recipe-image-list" src="{{object.pic.url}}" alt="{{object.name}}"></td>
-            </tr>
-            {% endfor %}
-        </table>
+      <table border="1">
+        <tr>
+          <td><strong>Recipes</strong></td>
+          <td><strong>Recipe Images</strong></td>
+        </tr>
+        {% for object in object_list %}
+        <tr>
+          <td><a href="{{object.get_absolute_url}}">{{object.name}}</a></td>
+          <td>
+            <img
+              class="recipe-image-list"
+              src="{{object.pic.url}}"
+              alt="{{object.name}}"
+            />
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
     </div>
-</body>
+  </body>
 </html>
