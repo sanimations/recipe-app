@@ -9,6 +9,8 @@
     <script src="{% static 'recipes/js/home.js' %}" defer></script>
 </head>
 <body>
+    {% include './navbar.html' %}
+    <br>
     <div class="container">
         <h1 style="text-align:center">Welcome to Recipes</h1>
         <a href ="{%url 'login' %}">  Login  </a>

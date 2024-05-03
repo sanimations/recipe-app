@@ -66,3 +66,15 @@ def records(request):
         }
 
     return render(request, 'recipes/recipe_list.html', context)
+
+def search_recipes(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        recipes = Recipes.objects.filter(name__contains=searched)
+
+        return render(request, 'recipes/search_recipes.html', 
+        {'searched':searched, 
+        'recipes': recipes})
+
+    else:
+        return render(request, 'recipes/search_recipes.html', {})

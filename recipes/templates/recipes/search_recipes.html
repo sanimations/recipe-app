@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipes Homepage</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}" />
+    <script src="{% static 'recipes/js/home.js' %}" defer></script>
+  </head>
+  <body>
+    {% include './navbar.html' %}
+    <br />
+
+    {% if searched %}
+        <h1>You Searched For {{searched}}</h1>
+        <br/>
+        {% for recipe in recipes %}
+            {{ recipe }} <br/>
+        {% endfor %}
+    {% else %}
+        <h1>You didn't type a recipe!</h1>
+    {% endif %}
+
+  </body>
+</html>
