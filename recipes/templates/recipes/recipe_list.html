@@ -10,16 +10,6 @@
   <body>
     {% include './navbar.html' %}
     <br>
-    <a href="{%url 'logout' %}"> Logout </a>
-    <form action="" method="POST">
-      {% csrf_token %} {{form}}
-      <button type="submit">search</button>
-    </form>
-    {% if recipes_df %} 
-        {{recipes_df|safe}} 
-    {% else %}
-        <h3>no data</h3>
-    {% endif %}
     <div class="container">
       <h1>Recipe Book</h1>
 
