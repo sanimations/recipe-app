@@ -28,13 +28,13 @@ def search_recipes(request):
         chart_type= '#1'
         recipes = Recipe.objects.filter(name__icontains=searched) #i makes it not case sensitive
 
-        qs =Recipe.objects.filter(name=searched)
+        qs =Recipe.objects.filter(name__icontains=searched)
         print(qs)
         if qs.exists():
             recipes_df=pd.DataFrame(qs.values())
             print(recipes_df)
             recipes_df['id']=recipes_df['id'].apply(get_recipename_from_id)
-            chart=get_chart(chart_type, recipes_df)
+            chart=get_chart(chart_type, qs)
             recipes_df=recipes_df.to_html()
 
         return render(request, 'recipes/search_recipes.html', 
@@ -46,7 +46,7 @@ def search_recipes(request):
 
     else:
         return render(request, 'recipes/search_recipes.html', {})
-        
+
 def graph_recipes(request):
     form = RecipesSearchForm(request.POST or None)
     recipes_df = None

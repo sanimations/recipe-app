@@ -39,17 +39,49 @@ def get_graph():
 
 def get_chart(chart_type, data):
 
-    #switch plot backend to AGG (Anti-Grain Geometry) - to write to file
-    #AGG is preferred solution to write PNG files
-    plt.switch_backend('AGG')
+    fig, ax = plt.subplots()
 
-    #specify figure size
-    fig=plt.figure(figsize=(6,3))
+    ingredients = []
+    ingredient_count = []
 
-    #select chart_type based on user input from the form
-    if chart_type == '#1':
-        #plot bar chart between date on x-axis and quantity on y-axis
-        plt.bar(data['name'], data['ingredients'])
+    for recipe in data:
+        ingredients_list = getattr(recipe, 'ingredients').split(',')
+        for ingredient in ingredients_list:
+            ingredients.append(ingredient)
+            ingredient_count.append(1)
 
-    else:
-        return None
+
+    fruits = ['apple', 'blueberry', 'cherry', 'orange']
+    counts = [40, 100, 30, 55]
+    # bar_labels = ['red', 'blue', '_red', 'orange']
+    # bar_colors = ['tab:red', 'tab:blue', 'tab:red', 'tab:orange']
+
+    ax.bar(ingredients, ingredient_count)
+
+    ax.set_ylabel('fruit supply')
+    ax.set_title('Fruit supply by kind and color')
+
+    buf = BytesIO()
+    plt.savefig(buf, format='png', dpi=300)
+    image_base64 = base64.b64encode(buf.getvalue()).decode('utf-8').replace('\n', '')
+    buf.close()
+
+    # plt.show()
+    # plt.savefig()
+
+    return image_base64
+
+    # #switch plot backend to AGG (Anti-Grain Geometry) - to write to file
+    # #AGG is preferred solution to write PNG files
+    # plt.switch_backend('AGG')
+
+    # #specify figure size
+    # fig=plt.figure(figsize=(6,3))
+
+    # #select chart_type based on user input from the form
+    # if chart_type == '#1':
+    #     #plot bar chart between date on x-axis and quantity on y-axis
+    #     plt.bar(data['name'], data['ingredients'])
+
+    # else:
+    #     return None
