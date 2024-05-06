@@ -8,27 +8,12 @@
     <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}">
     <script src="{% static 'recipes/js/home.js' %}" defer></script>
 </head>
+{% include './navbar.html' %}
 <body>
-    {% include './navbar.html' %}
     <br>
     <div class="container">
         <h1 style="text-align:center">Welcome to Recipes</h1>
-        <a href ="{%url 'login' %}">  Login  </a>
-        <div class="search-bar">
-            <p>Search through all our recipes!</p>
-            <!-- Search bar -->
-            <input type="text" placeholder="Search...">
-            <button type="submit">Search</button>
-        </div>
-
-        <!-- Tabs -->
-        <h2>What Kind of Recipe Are You Looking to Make?</h2>
-        <div class="tabs">
-            <div class="tab">Easy</div>
-            <div class="tab">Medium</div>
-            <div class="tab">Intermediate</div>
-            <div class="tab">Hard</div>
-        </div>
+        <a class="login" href ="{%url 'login' %}">  Login  </a>
     </div>
     <p style="text-align:center">
         <img src="{% static 'recipes/images/kitchen.jpg' %}" alt="home" width="600" height="50%">
