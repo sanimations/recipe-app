@@ -11,7 +11,6 @@ class RecipeListView(LoginRequiredMixin, ListView):            #class-based view
     model = Recipe                         #specify model
     main = 'recipes/recipe_list.html'    #specify template 
 
-
 class RecipeDetailView(LoginRequiredMixin, DetailView):
     model = Recipe
     detail = 'recipes/recipe_detail.html'
@@ -19,62 +18,53 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
 def home(request):
    return render(request, 'recipes/recipes_home.html')
 
-def records(request):
-    #create an instance of RecipesSearchForm that you defined in recipes/forms.py
+def search_recipes(request):
     form = RecipesSearchForm(request.POST or None)
-    recipes_df = None
+    recipes_df=None   #initialize dataframe to None
     chart = None
 
-     #check if the button is clicked
-    if request.method =='POST':
-        recipe_name = request.POST.get('recipe_name')
-        ingredients = request.POST.get('ingredients')
-        chart_type = request.POST.get('chart_type')
-
-        qs =Recipe.objects.filter(name=recipe_name, ingredients=ingredients)
-        if qs.exists():
-            recipes_df=pd.DataFrame(qs.values())
-            recipes_df['recipe_id']=recipes_df['recipe_id'].apply(get_recipename_from_id)
-            chart=get_chart(chart_type, recipes_df, labels=recipes_df['date_created'].values)
-            recipes_df=recipes_df.to_html()
-
-        # print(recipe_name, ingredients,chart_type)
-
-        # print ('Exploring querysets:')
-        # print ('Case 1: Output of Sale.objects.all()')
-        # qs=Recipe.objects.all()
-        # print (qs)
-
-        # print ('Case 2: Output of Sale.objects.filter(book_name=book_title)')
-        # qs =Recipe.objects.filter(book__name=book_title)
-        # print (qs)
-
-        # print ('Case 3: Output of qs.values')
-        # print (qs.values())
-
-        # print ('Case 4: Output of qs.values_list()')
-        # print (qs.values_list())
-
-        # print ('Case 5: Output of Sale.objects.get(id=1)')
-        # obj = Recipe.objects.get(id=1)
-        # print (obj)
-
-        context={
-          'form': form,
-          'recipes_df': recipes_df,
-          'chart': chart
-        }
-
-    return render(request, 'recipes/recipe_list.html', context)
-
-def search_recipes(request):
     if request.method == "POST":
         searched = request.POST['searched']
-        recipes = Recipes.objects.filter(name__contains=searched)
+        chart_type= '#1'
+        recipes = Recipe.objects.filter(name__icontains=searched) #i makes it not case sensitive
+
+        qs =Recipe.objects.filter(name=searched)
+        print(qs)
+        if qs.exists():
+            recipes_df=pd.DataFrame(qs.values())
+            print(recipes_df)
+            recipes_df['id']=recipes_df['id'].apply(get_recipename_from_id)
+            chart=get_chart(chart_type, recipes_df)
+            recipes_df=recipes_df.to_html()
 
         return render(request, 'recipes/search_recipes.html', 
-        {'searched':searched, 
-        'recipes': recipes})
+        {'searched':searched,
+        'recipes_df': recipes_df, 
+        'recipes': recipes,
+        'form': form,
+        'chart': chart})
 
     else:
         return render(request, 'recipes/search_recipes.html', {})
+        
+def graph_recipes(request):
+    form = RecipesSearchForm(request.POST or None)
+    recipes_df = None
+    chart = '#1'
+
+    if request.method == 'POST':
+        recipe_name = request.POST.get('recipe_name')
+
+        qs =Recipe.objects.filter(name=searched)
+        if qs.exists():
+            recipes_df=pd.DataFrame(qs.values())
+            recipes_df['id']=recipes_df['id'].apply(get_recipename_from_id)
+            recipes_df=recipes_df.to_html()
+
+    context={
+        'form': form,
+        'recipes_df':recipes_df,
+        'chart':chart
+    }
+
+    return render(request, 'recipes/graph_recipes.html', context)
