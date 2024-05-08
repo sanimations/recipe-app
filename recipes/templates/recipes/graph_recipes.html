@@ -1,7 +1,17 @@
-{% if recipes_df %}
-   {{recipes_df|safe}}
-   <br>
-   <img src="data:image/png;base64, {{chart|safe}}">
-{% else %}
-   <h3> no data</h3>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+   {% load static %}
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Graphs Page</title>
+   <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}" />
+   <script src="{% static 'recipes/js/home.js' %}" defer></script>
+</head>
+{% include './navbar.html' %}
+<body>
+
+   <h1>Under Construction</h1>
+   
+</body>
+</html>
