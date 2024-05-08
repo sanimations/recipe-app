@@ -18,18 +18,18 @@
     {% for recipe in recipes %} {{ recipe }} <br />
     {% endfor %} {% else %}
     <h1>You didn't type a recipe!</h1>
-    {% endif %} 
-    
-    <!-- bad chart-->
-    {% if recipes_df %} {{recipes_df}} {% else %}
-    <h3>no data</h3>
     {% endif %}
 
+    <!-- Dataframe written out-->
+    <!-- {% if recipes_df %} {{recipes_df}} {% else %}
+    <h3>no data</h3>
+    {% endif %} -->
+
     <!-- Display the chart if it exists -->
-    {% if chart %}
-    <img src="data:image/png;base64, {{ chart }}" alt="Chart" />
-    {% else %}
-    <p>No chart available.</p>
-    {% endif %}
+      {% if chart %}
+      <img class="chart-img" src="data:image/png;base64, {{ chart }}" alt="Chart" width="55%" height="700"/>
+      {% else %}
+      <p>No chart available.</p>
+      {% endif %}
   </body>
 </html>
