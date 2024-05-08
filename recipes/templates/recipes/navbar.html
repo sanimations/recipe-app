@@ -43,7 +43,7 @@
             method="POST"
             action="{% url 'recipes:search-rec' %}"
           >
-            {% csrf_token %} {{form}}
+            {% csrf_token %}
 
             <input
               class="form-control me-2"
