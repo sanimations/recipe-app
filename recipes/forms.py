@@ -10,6 +10,8 @@
 
 
 from django import forms
+from django.forms import ModelForm
+from .models import Recipe
 
 
 CHART__CHOICES = (
@@ -24,3 +26,22 @@ class RecipesSearchForm(forms.Form):
     recipe_name= forms.CharField(max_length=100)
     ingredients= forms.CharField(max_length=300)
     chart_type= forms.ChoiceField(choices=CHART__CHOICES)
+
+class CreateRecipeForm(ModelForm):
+    class Meta:
+        model = Recipe
+        fields = {'name', 'ingredients', 'cooking_time', 'description', 'pic'}
+        labels = {
+            'name': 'Enter Recipe Name',
+            'ingredients': 'List ingredients separated by a comma',
+            'cooking_time': 'Enter number of minutes it takes to cook (just type the number)',
+            'pic': 'Upload an image of finished recipe', 
+        }
+
+        widgets = { 
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'ingredients': forms.TextInput(attrs={'class':'form-control'}),
+            'cooking_time': forms.TextInput(attrs={'class':'form-control'}),
+            'pic': forms.FileInput(attrs={'class':'form-control'}),
+        }
+

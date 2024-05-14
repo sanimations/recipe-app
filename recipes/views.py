@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView   #to display lists and details
 from .models import Recipe                #to access Recipe model
 from django.contrib.auth.mixins import LoginRequiredMixin   #to protect class-based view
-from .forms import RecipesSearchForm
+from .forms import RecipesSearchForm, CreateRecipeForm
 import pandas as pd
+from django.http import HttpResponseRedirect
 from .utils import get_recipename_from_id, get_chart
+
 
 
 class RecipeListView(LoginRequiredMixin, ListView):            #class-based view
@@ -14,6 +16,23 @@ class RecipeListView(LoginRequiredMixin, ListView):            #class-based view
 class RecipeDetailView(LoginRequiredMixin, DetailView):
     model = Recipe
     detail = 'recipes/recipe_detail.html'
+
+def create_recipe(request):
+    submitted = False
+    if request.method == "POST":
+        form = CreateRecipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/create_recipe?submitted=True')
+
+    else:
+        form = CreateRecipeForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+
+
+    return render(request, 'recipes/create_recipe.html', {'form': form, 'submitted': submitted})
 
 def home(request):
    return render(request, 'recipes/recipes_home.html')
