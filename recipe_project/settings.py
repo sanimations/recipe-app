@@ -31,7 +31,10 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['SCBeginner353.pythonanywhere.com']
+ALLOWED_HOSTS = [
+    'SCBeginner353.pythonanywhere.com',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -126,10 +129,13 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS=[
-   BASE_DIR / 'static'
+   BASE_DIR / 'static',
+   BASE_DIR / 'recipes/static',
 ]
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT= BASE_DIR / 'media'
