@@ -1,6 +1,8 @@
 from django.test import TestCase
 from .models import Recipe
 from .forms import RecipesSearchForm
+from django.contrib.auth.models import User
+from django.urls import reverse
 
 class RecipeModelTest(TestCase):
 
@@ -32,7 +34,7 @@ class RecipeModelTest(TestCase):
       recipe = Recipe.objects.get(id=1)
        #get_absolute_url() should take you to the detail page of book #1
        #and load the URL /books/list/1
-      self.assertEqual(recipe.get_absolute_url(), '/recipes/list/1')
+      self.assertEqual(recipe.get_absolute_url(), '/list/1')
 
 class RecipeFormTest(TestCase):
 
@@ -44,3 +46,14 @@ class RecipeFormTest(TestCase):
         form = RecipesSearchForm(data=form_data)
         self.assertTrue(form.is_valid())
 
+class LoginTest(TestCase): 
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='password')
+
+    def test_successful_login(self):
+        data = {'username': 'testuser', 'password': 'password'}
+        response = self.client.post(reverse('login'), data)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('recipes:list'))
+        self.assertTrue(self.client.login(username='testuser', password='password'))
