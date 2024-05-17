@@ -8,10 +8,28 @@
    <link rel="stylesheet" href="{% static 'recipes/css/style.css' %}" />
    <script src="{% static 'recipes/js/home.js' %}" defer></script>
 </head>
-{% include './navbar.html' %}
 <body>
-
-   <h1>Under Construction</h1>
-   
+   {% include './navbar.html' %}
+    <div class="container">
+        <h1>About Me</h1>
+        <h3>Hello, I'm Sam Martucci!</h3>
+        <p>
+            Welcome to 'Recipe Book', my first ever Python Application!<br> 
+            It has login features, it's made with Django, and it uses Matplotlib to
+            create Graphs based on the data given!  <br><br>A few things about me:
+        </p>
+        <ul>
+            <li><strong>Name:</strong> Sam Martucci</li>
+            <li><strong>Profession:</strong> Full-Stack Web Dev</li>
+            <li><strong>Location:</strong> Brooklyn, New York</li>
+            
+        </ul>
+        <h2>Contact Me</h2>
+        <p> 
+            Connect with me on LinkedIn: <a href="https://www.linkedin.com/in/samuel-martucci-57710317b/" target="_blank">LinkedIn</a><br>
+            Follow me on Github: <a href="https://github.com/sanimations" target="_blank">Github</a><br>
+            Checkout my Portfolio: <a href="https://sanimations.github.io/CRA-Portfolio/" target="_blank">My Portfolio</a><br>
+        </p>
+    </div>
 </body>
 </html>

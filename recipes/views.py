@@ -20,7 +20,7 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
 def create_recipe(request):
     submitted = False
     if request.method == "POST":
-        form = CreateRecipeForm(request.POST)
+        form = CreateRecipeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/create_recipe?submitted=True')
@@ -29,8 +29,6 @@ def create_recipe(request):
         form = CreateRecipeForm
         if 'submitted' in request.GET:
             submitted = True
-
-
 
     return render(request, 'recipes/create_recipe.html', {'form': form, 'submitted': submitted})
 

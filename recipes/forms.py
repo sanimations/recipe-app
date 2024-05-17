@@ -32,16 +32,15 @@ class CreateRecipeForm(ModelForm):
         model = Recipe
         fields = {'name', 'ingredients', 'cooking_time', 'description', 'pic'}
         labels = {
-            'name': 'Enter Recipe Name',
-            'ingredients': 'List ingredients separated by a comma',
-            'cooking_time': 'Enter number of minutes it takes to cook (just type the number)',
-            'pic': 'Upload an image of finished recipe', 
+            'name': 'Recipe Name',
+            'ingredients': 'List ingredients separated by commas',
         }
 
         widgets = { 
-            'name': forms.TextInput(attrs={'class':'form-control'}),
+
             'ingredients': forms.TextInput(attrs={'class':'form-control'}),
-            'cooking_time': forms.TextInput(attrs={'class':'form-control'}),
-            'pic': forms.FileInput(attrs={'class':'form-control'}),
+        #     'cooking_time': forms.TextInput(attrs={'class':'form-control'}),
+        #     'description': forms.Textarea(attrs={'class': 'form-control'}),
+        #     'pic': forms.FileInput(attrs={'class':'form-control'}),
         }
 
